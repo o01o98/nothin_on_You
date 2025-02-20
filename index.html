@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portofolio Saya</title>
+  <!-- Bootstrap CSS (hanya satu kali) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <!-- Font Awesome (untuk icon jika diperlukan) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-HHsOC/3GshFGW+S5OUE9AZdw4CeeZV8UeWz8Z3v3E0BjfjL9d5+RVd44rdl+Bkys4MTD5xjX+FfkLhPpFQ41qw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Bootstrap Icons (jika digunakan) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <style>
+    .navbar-toggler {
+      z-index: 2000;
+    }
+    /* Global Styles */
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding-top: 80px; /* Agar konten tidak tertutup oleh navbar fixed */
+      scroll-behavior: smooth;
+      background-color: #f4f4f4;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Navbar Component */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      padding: 10px 20px;
+    }
+    .navbar-brand img {
+      max-height: 50px;
+    }
+    .navbar-nav .nav-link {
+      margin: 0 15px;
+      letter-spacing: 1px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease, text-shadow 0.3s ease;
+    }
+    .navbar-nav .nav-link:hover {
+      transform: translateY(-3px);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+    }
+
+    /* Hero Section */
+    #hero {
+      height: 100vh;
+      background: linear-gradient(to bottom, rgb(116,93,241), rgb(39,0,79)) top,
+                  linear-gradient(to top, rgb(0,0,0), rgb(39,0,79)) bottom;
+      background-size: 100% 50%;
+      background-repeat: no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-align: right;
+    }
+    #hero img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 20px;
+    }
+    #hero h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    #hero p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    }
+    #hero .btn {
+      padding: 12px 30px;
+      font-size: 1.1rem;
+      border-radius: 30px;
+      transition: background 0.3s, transform 0.3s;
+      margin-bottom: 20px;
+    }
+    #hero .btn:hover {
+      background: #ff0202;
+      transform: translateY(-3px);
+    }
+    /* Social Media Icons */
+    .social-icons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+    .social-icons a {
+      font-size: 1.5rem;
+      color: #fff;
+      transition: transform 0.3s, color 0.3s;
+    }
+    .social-icons a:hover {
+      transform: scale(1.2);
+      color: #ffcc00;
+    }
+
+    /* Section Titles */
+    .section-title {
+      font-weight: bold;
+      margin-bottom: 40px;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 10px;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      width: 50%;
+      height: 3px;
+      background: #007bff;
+      left: 25%;
+      bottom: 0;
+    }
+
+    /* About Section */
+    #about {
+      background: #fff;
+      padding: 60px 0;
+    }
+    #about .profile-img {
+      width: 100%;
+      border-radius: 50%;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    /* Portfolio Section */
+    #portfolio {
+      background: #f4f4f4;
+      padding: 60px 0;
+    }
+    /* Flip Card Styles */
+    .flip-card {
+      background-color: transparent;
+      width: 100%;
+      perspective: 1000px;
+      margin-bottom: 30px;
+    }
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      padding-bottom: 57%;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .flip-card-front {
+      background-color: #fff;
+      color: black;
+    }
+    .flip-card-front img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .flip-card-back {
+      background-color: #ffffff;
+      color: white;
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+    }
+    .flip-card-back h5 {
+      margin-bottom: 10px;
+      font-size: 1.5rem;
+    }
+    .flip-card-back p {
+      margin-bottom: 15px;
+      font-size: 1rem;
+    }
+    .flip-card-back a {
+      border: 1px solid #fff;
+      padding: 5px 15px;
+      border-radius: 20px;
+      transition: background 0.3s, color 0.3s;
+    }
+    .flip-card-back a:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    /* Contact Section */
+    #contact {
+      background: #fff;
+      padding: 60px 0;
+    }
+    /* Efek 3D pada input dan textarea saat fokus */
+    #contact .form-control {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    #contact .form-control:focus {
+      transform: perspective(1000px) rotateX(3deg);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      border-color: #007bff;
+      outline: none;
+    }
+    #contact button {
+      border-radius: 30px;
+    }
+
+    /* Footer */
+    .footer {
+      background: #000000;
+      color: #fff;
+      padding: 30px 0;
+      text-align: center;
+    }
+
+    /* Animasi Fade-In */
+    .fade {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+    .fade.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar Component -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="#">
+  <img src="https://t4.ftcdn.net/jpg/03/75/38/73/360_F_375387396_wSJM4Zm0kIRoG7Ej8rmkXot9gN69H4u4.jpg" alt="Logo" style="max-height: 40px;">
+</a>
+
+          
+      <!-- Tombol toggler -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- Menu collapse -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#hero">Beranda</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">Tentang Saya</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#portfolio">Portofolio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Kontak</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section Component -->
+  <section id="hero" class="fade">
+    <div class="container d-flex flex-column align-items-center justify-content-center text-center">
+      <img src="asset/WhatsApp Image 2025-02-17 at 20.04.37.jpeg" alt="Foto Profil" class="img-fluid rounded-circle mb-4" style="width: 150px; height: 150px; object-fit: cover;">
+      <h1 class="display-4" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Selamat Datang di Portofolio Saya</h1>
+      <p class="lead" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.5);">Saya adalah seorang profesional di bidang desain</p>
+      <a href="#portfolio" class="btn btn-primary btn-lg mb-3">Lihat Portofolio</a>
+      <!-- Icon Medsos -->
+      <div class="social-icons d-flex gap-3">
+        <a href="https://www.facebook.com" class="social-icon" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.twitter.com" class="social-icon" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.linkedin.com" class="social-icon" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://www.instagram.com" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section Component -->
+  <section id="about" class="fade">
+    <div class="container">
+      <h2 class="text-center section-title">Tentang Saya</h2>
+      <div class="row align-items-center">
+        <div class="col-md-4 mb-4 mb-md-0">
+          <img src="asset/WhatsApp Image 2025-02-17 at 20.04.37.jpeg" alt="Foto Saya" class="profile-img">
+        </div>
+        <div class="col-md-8">
+          <p>Hallo semuanya perkenalkan nama saya Mutiara Fatiha Ramadhani. Saya lahir pada tahun 2008 tanggal 1 bulan september. Warna yang paling saya sukai adalah warna biru muda </p>
+          <p>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Section Component dengan Efek Flip -->
+  <section id="portfolio" class="fade">
+    <div class="container">
+      <h2 class="text-center section-title">Portofolio</h2>
+      <div class="row">
+        <!-- Portfolio Item 1 -->
+        <div class="col-md-4">
+          <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img src="https://asset.kompas.com/crops/FwVLZM7vQLJTL2V0v5tWQP9SZRc=/21x14:771x514/1200x800/data/photo/2024/06/15/666d463f785a8.jpg" alt="Proyek 1">
+              </div>
+              <div class="flip-card-back">
+                <h5>Musik Favorit</h5>
+                <p style="color: #000;">
+                 Saya suka mendengarkan musik maroon5, Taylor Swift, Bruno Mars, dan masih banyak lagi.</p>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Portfolio Item 2 -->
+        <div class="col-md-4">
+          <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img src="https://rencanamu.id/assets/file_uploaded/blog/1547355394-happy-hobb.jpg" alt="Proyek 2">
+              </div>
+              <div class="flip-card-back">
+                <h5 style="color: #000;">Hobi</h5>
+                <p style="color: #000;">Hobi saya banyak yang pertama hobi makan,hobi berolahraga (Bulu tangkis), saya juga suka menulis diary dan hobi yang paling saya sukai yaitu Tidur.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Portfolio Item 3 -->
+        <div class="col-md-4">
+          <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img src="https://disnakertrans.ntbprov.go.id/wp-content/uploads/2020/09/soft-skills.png" alt="Proyek 3">
+              </div>
+              <div class="flip-card-back">
+                <h5 style="color: #000;">Soft skill</h5>
+                <p style="color: #000;">Soft skill saya ada banyak 
+                    yang pertama saya bisa power point, Microsoft excel
+                    ,Microsoft Word.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section Component -->
+  <section id="contact" class="fade">
+    <div class="container">
+      <h2 class="text-center section-title">Kontak</h2>
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <form id="contactForm">
+            <div class="mb-3">
+              <label for="name" class="form-label">Nama</label>
+              <input type="text" class="form-control" id="name" name="user_name" placeholder="Masukkan nama Anda" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Alamat Email</label>
+              <input type="email" class="form-control" id="email" name="user_email" placeholder="Masukkan email Anda" required>
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Pesan</label>
+              <textarea class="form-control" id="message" name="message" rows="5" placeholder="Tulis pesan Anda" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Kirim</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Component -->
+  <footer class="footer fade">
+    <div class="container text-center">
+      <p>&copy; 2025 Nama Anda. Semua Hak Cipta Dilindungi.</p>
+      <div class="social-icons mt-2">
+        <a href="https://www.instagram.com/mutiara.rmdhanii?igsh=MjFqd2V1MDFqOGV6" target="_blank" class="me-3"><i class="bi bi-instagram"></i></a>
+        <a href="#" target="_blank" class="me-3"><i class="bi bi-facebook"></i></a>
+        <a href="https://www.tiktok.com/@mutiaaraaaaaaaaaa?_t=ZS-8u4hlJcUpg0&_r=1" target="_blank"><i class="bi bi-tiktok"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Fade-in Animation using Intersection Observer
+    document.addEventListener("DOMContentLoaded", () => {
+      const faders = document.querySelectorAll(".fade");
+      const options = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px"
+      };
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("in");  // Menambahkan kelas "in" untuk memicu animasi interaktif
+          observer.unobserve(entry.target);
+        });
+      }, options);
+
+      faders.forEach(fader => observer.observe(fader));
+    });
+
+    // Contact Form Submission Handler
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Pesan Anda telah terkirim!');
+      this.reset();
+    });
+  </script>
+</body>
+</html>
